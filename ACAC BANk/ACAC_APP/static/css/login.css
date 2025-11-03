@@ -1,0 +1,71 @@
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f0f2f5;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+}
+
+
+.container {
+  background: white;
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+  width: 300px;
+  text-align: center;
+}
+
+h1 {
+  margin-bottom: 1.5rem;
+  color: #1a237e;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+label {
+  text-align: left;
+  margin-bottom: 0.25rem;
+}
+
+input {
+  margin-bottom: 1rem;
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+#regLink{
+  color:#1a237e;
+  padding-bottom: 10px;
+  font-size: medium;
+
+
+}
+#regLink:hover {
+  color: #3949ab;
+}
+
+button {
+  padding: 0.6rem;
+  background-color: #1a237e;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #3949ab;
+}
+
+.error {
+  color: red;
+  margin-top: 1rem;
+  font-size: 0.9rem;
+}

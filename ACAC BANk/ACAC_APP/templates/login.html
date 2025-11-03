@@ -1,0 +1,52 @@
+<html lang="en">
+{% load static %}
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ACAC BANK Login</title>
+  <link rel="stylesheet" href="{% static 'css/login.css' %}" />
+</head>
+<body>
+  <div class="container">
+    <h1>ACAC BANK</h1>
+    {% block content %}
+    <p class="error">{{emsg}}</p>
+    <form action ="{% url 'loading' %}" id="loginForm" method="POST">
+      {% csrf_token %}
+      <label for="accountNo">Account No:</label>
+      <input type="text" id="accountNo" name="accountNo" maxlength="6" required />
+
+      <label for="pin">PIN:</label>
+      <input type="password" id="pin" name="pin" maxlength="4" required />
+      <a href="{% url 'register' %}" id="regLink">don't have an account? Register</a>
+      <p id="errorMsg" class="error"></p>
+
+      <button type="submit">Login</button>
+    </form>
+    {% endblock %}
+  </div>
+  <script>
+    document.getElementById('loginForm').addEventListener('submit', function (e) {
+
+    const accNo = document.getElementById('accountNo').value.trim();
+    const pin = document.getElementById('pin').value.trim();
+    const errorMsg = document.getElementById('errorMsg');
+
+    const accNoValid = /^\d{6}$/.test(accNo); // Changed from 16 to 6 digits
+    const pinValid = /^\d{4}$/.test(pin);
+
+    if (!accNoValid) {
+      errorMsg.textContent = "Account number must be exactly 6 digits.";
+      e.preventDefault();
+      console.log("ok not ok")
+    }
+
+    if (!pinValid) {
+      errorMsg.textContent = "PIN must be exactly 4 digits.";
+      e.preventDefault();
+    }
+  // Submit form or further processing here
+});
+  </script>
+</body>
+</html>

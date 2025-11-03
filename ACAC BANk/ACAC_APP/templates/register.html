@@ -1,0 +1,85 @@
+<html lang="en">
+{% load static %}
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Register - ACAC BANK</title>
+  <link rel="stylesheet" href="{% static 'css/login.css' %}" />
+</head>
+<body>
+  <div class="container">
+    <h1>Register</h1>
+    {% block content %}
+    <form id="myForm" action="{% url 'loading' %}" method="POST">
+      {% csrf_token %}
+      <label for="name">Name:</label>
+      <input type="text" id="name" name="name" required />
+
+      <label for="age">Age:</label>
+      <input type="number" id="age" name="age" required />
+
+      <label for="phone">Phone:</label>
+      <input type="text" id="phone" name="phone" maxlength="10" required />
+
+      <label for="deposit">Initial Deposit:</label>
+      <input type="text" id="deposit" name="deposit" required />
+
+      <label for="genAccNo">Generated Account Number :</label>
+      <input type="text" name="gAccNo" value="{{gAccNo}}" readonly />
+      <label for="genPinNO">Generated Pin No :</label>
+      <input type="text" name="gPinNO" value="{{gPinNo}}" readonly />
+
+      <label for="confirmPin" style="margin-top: 1rem;">retype the pin :</label>
+      <input type="password" id="confirmPin" name="confirmPin" maxlength="4" required2 />
+      <p class="error" id="errorMsg"></p>
+
+      <button type="submit">Register</button>
+    </form>
+    {% endblock %}
+  </div>
+
+  <script>
+    document.getElementById("myForm").addEventListener("submit", function(event) {
+
+
+    var confirmPin = document.getElementById("confirmPin").value;
+
+    const name = document.getElementById('name').value.trim();
+    const age = parseInt(document.getElementById('age').value.trim(), 10);
+    const phone = document.getElementById('phone').value.trim();
+    const deposit = document.getElementById('deposit').value.trim();
+    const errorMsg = document.getElementById('errorMsg');
+  
+    const nameValid = /^[a-zA-Z\s]+$/.test(name);
+    const ageValid = !isNaN(age) && age > 0 && age < 150;
+    const phoneValid = /^\d{10}$/.test(phone);
+    const depositValid = /^\d+$/.test(deposit);
+  
+    if (!nameValid) {
+      errorMsg.textContent = "Name must contain only letters and spaces.";
+      event.preventDefault(); // stop form from submitting
+    }
+  
+    if (!ageValid) {
+      errorMsg.textContent = "Age must be a number less than 150.";
+      event.preventDefault();
+    }
+  
+    if (!phoneValid) {
+      errorMsg.textContent = "Phone number must be exactly 10 digits.";
+      event.preventDefault();
+    }
+  
+    if (!depositValid) {
+      errorMsg.textContent = "Initial Deposit must be a valid number.";
+      event.preventDefault();
+    }
+    if("{{gPinNo}}"!=confirmPin){
+      errorMsg.textContent ="Pin Does Not Match"
+      event.preventDefault();
+    }  
+    // You can proceed with form submission here
+  });
+  </script>
+</body>
+</html>
